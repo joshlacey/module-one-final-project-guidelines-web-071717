@@ -22,7 +22,8 @@ class Cli
 
   def fav_player
     puts "Who's you favorite player?"
-     @new_customer.player = gets.chomp.downcase
+     player = gets.chomp.downcase
+     @new_customer.player_id = Player.find_by(name: player).id 
   end
 
   def get_size
@@ -37,6 +38,17 @@ class Cli
     @new_customer.lowest_price = gets.chomp
     @new_customer.save
   end
+
+  def here_suggestions
+    puts "Here are some suggestions!"
+    Style.select do |shoe|
+      @new_customer.lowest_price <= shoe.price <= @new_customer.highest_price && shoe.sport_id == @new_customer.sport_id || shoe.player_id == @new_customer.player_id
+    end.map{|shoe| shoe.url }
+  end
+
+
+
+
 
 
 
