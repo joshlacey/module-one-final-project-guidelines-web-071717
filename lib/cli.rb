@@ -1,9 +1,9 @@
 class Cli
   attr_accessor :new_customer
-  
+
   def greeting
     puts "Welcome to Nike please, create your account."
-    # binding.pry
+    binding.pry
   end
 
   def get_name
@@ -40,7 +40,7 @@ class Cli
 
 
 
-  
+
 
 
 
