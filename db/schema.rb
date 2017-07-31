@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731200241) do
+ActiveRecord::Schema.define(version: 20170731212228) do
 
   create_table "customers", force: :cascade do |t|
     t.string  "name"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20170731200241) do
     t.integer "price"
     t.integer "player_id"
     t.integer "sport_id"
+    t.string  "url"
+    t.string  "name"
   end
 
 end
