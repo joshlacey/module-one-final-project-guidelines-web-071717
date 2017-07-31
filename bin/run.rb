@@ -1,3 +1,7 @@
-require_relative 'config/environment'
+require_relative '../config/environment'
 
-puts "hello"
+new_cli = Cli.new
+
+new_cli.greeting
+
+new_cli.get_name

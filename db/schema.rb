@@ -10,6 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731160725) do
+ActiveRecord::Schema.define(version: 20170731172454) do
+
+  create_table "customers", force: :cascade do |t|
+    t.string  "name"
+    t.string  "sport"
+    t.string  "size"
+    t.integer "lowest_price"
+    t.integer "highest_price"
+    t.string  "color"
+  end
 
 end
