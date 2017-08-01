@@ -3,7 +3,7 @@ class Cli
 
   def greeting
     puts "Welcome to Nike please, create your account."
-    binding.pry
+    #binding.pry
   end
 
   def get_name
@@ -23,7 +23,7 @@ class Cli
   def fav_player
     puts "Who's you favorite player?"
      player = gets.chomp.downcase
-     @new_customer.player_id = Player.find_by(name: player).id 
+     @new_customer.player_id = Player.find_by(name: player).id
   end
 
   def get_size
