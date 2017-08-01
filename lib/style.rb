@@ -1,4 +1,5 @@
 class Style < ActiveRecord::Base
+  belongs_to :sport
 
   # def self.load_db_with_html
   #
@@ -8,7 +9,7 @@ class Style < ActiveRecord::Base
   #     new_style = self.new
   #     new_style.name = product.css(".product-diplay-name").text
   #     new_style.description = product_description = product.css(".product-subtitle").text
-  #     new_style.price = product.css("span.local").text.delete("$").to_i
+  #     new_style.price = product.css("span.local").text.delete("$").to_if
   #     binding.pry
   #     new_style.save
   #   end
