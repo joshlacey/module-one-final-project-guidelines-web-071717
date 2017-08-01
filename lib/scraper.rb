@@ -10,9 +10,9 @@ tennis_html = "../fixtures/nike_tennis.html"
 
 tennis_shoes = "https://store.nike.com/us/en_us/pw/mens-tennis-shoes/7puZoi3Zpd7"
 
-def load_db_with_html
+def load_db_with_html(url, sport)
 
-  doc = Nokogiri::HTML(open("https://store.nike.com/us/en_us/pw/mens-tennis-shoes/7puZoi3Zpd7"))
+  doc = Nokogiri::HTML(open(url))
 
   doc.css("div.grid-item-box").each do |product|
     new_style = Style.new
@@ -20,8 +20,9 @@ def load_db_with_html
     new_style.description = product_description = product.css(".product-subtitle").text
     new_style.price = product.css("span.local").text.delete("$").to_i
     new_style.url = product.at("a").map{|link| link}[0].last
+    #new_style.sport = sport
     new_style.save
   end
 end
 
-load_db_with_html
+#load_db_with_html(tennis_shoes, "tennis")
