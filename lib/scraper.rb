@@ -1,6 +1,6 @@
 require 'nokogiri'
 require 'pry'
-require 'open-uri'
+
 require_relative '../config/environment'
 
 def load_db_with_html(url:, sport: nil, player: nil)

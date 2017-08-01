@@ -6,13 +6,32 @@ class Cli
     #binding.pry
   end
 
-  def get_name
-    puts "What is your first and last name?"
-    first_last_name = gets.chomp
-    @new_customer = Customer.new
-    # binding.pry
-    @new_customer.name = first_last_name
+  def login_or_create_account
+    puts "Have you used our service before? Please type 'yes' or 'no'"
+    response = gets.chomp
+    if response == "yes" || "y" || "Yes"
+      puts "Please type in your username"
+      username == gets.chomp
+      @new_customer = Customer.find_by(name: username)
+    elsif response == "no" || "n" || "No"
+      create_username
+    else
+      puts "Invalid input, please try again."
+      login_or_create_account
+    end
+  end
 
+
+  def create_username
+    puts "Please create your username"
+    username = gets.chomp
+    tester = Customer.find_by(name: username)
+    if tester
+      puts "Sorry that username is taken"
+      create_username
+    else
+      @new_customer = Customer.create(name: username)
+    end
   end
 
   def get_sport
@@ -45,10 +64,6 @@ class Cli
       @new_customer.lowest_price <= shoe.price <= @new_customer.highest_price && shoe.sport_id == @new_customer.sport_id || shoe.player_id == @new_customer.player_id
     end.map{|shoe| shoe.url }
   end
-
-
-#test#
-
 
 
 
