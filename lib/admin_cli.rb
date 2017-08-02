@@ -4,8 +4,8 @@ class AdminCli
     puts "Here are some options for viewing customer responses:"
     puts "1- Most popular Player"
     puts "2- Most popular Sport"
-    puts "3- Customer's Max budget"
-    puts "What would you like to do? (type a corresponding number to select from above options or type exit to quit)"
+    puts "3- Customers' Max budget"
+    puts "What would you like to do? (type a corresponding number to select from above options or type 'exit' to quit)"
     response = gets.chomp
     case response
     when "1"
@@ -20,7 +20,7 @@ class AdminCli
         run
       when "3"
         puts "\n"
-        puts "coming soon"
+        puts Customer.max_budget
         puts "\n"
         run
       when "exit"
