@@ -6,7 +6,7 @@ class Customer < ActiveRecord::Base
 
   def self.favorite_player
     play_assoc = PlayerAssociation.group("player_id").order("count(*) DESC").limit(1)
-    Player.find_by(id: play_assoc[0].player_id).player
+    Player.find_by(id: play_assoc[0].player_id).name
   end
 
   def self.favorite_sport
