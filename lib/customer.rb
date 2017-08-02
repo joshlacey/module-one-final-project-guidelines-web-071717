@@ -26,7 +26,6 @@ end
 
   end
 
-<<<<<<< HEAD
 
 def account_overview
 
@@ -36,22 +35,8 @@ def account_overview
   self.players.each {|player|puts player.name}
   puts "\n"
   puts "Favorite Sports:"
-  arr = self.sports.map {|sport| sport.sport}.uniq
-  arr.each {|el| puts el }
-=======
-  def account_overview
-    puts "username:#{self.name}"
-    puts "\n"
-    puts "Favorite Players:"
-    self.players.each {|player|puts player.name}
-    puts "\n"
-    puts "Favorite Sports:"
-    self.sports.each {|sport|puts sport.sport}
-    puts "\n"
-    puts "Suggested Styles:"
-    puts self.cart.sample(7)
-  end
->>>>>>> dc595802ab36fca2ac08c460906ba24898f70bfe
+  self.sports.map {|sport| puts sport.sport}.uniq
+
 
 end
 

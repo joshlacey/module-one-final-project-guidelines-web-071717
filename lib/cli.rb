@@ -117,11 +117,7 @@ end #what sports are you interested in?
     if @new_customer.cart == []
       puts "Sorry there are no suggestions based on your criteria."
     else
-<<<<<<< HEAD
-      puts @new_customer.cart.sample(5)
-=======
       puts @new_customer.cart.sample(7)
->>>>>>> dc595802ab36fca2ac08c460906ba24898f70bfe
     end
   end
 
@@ -157,22 +153,6 @@ end #what sports are you interested in?
     end
   end
 
-<<<<<<< HEAD
-# def account_overview
-#
-#   puts "username:#{@new_customer.name}"
-#   puts "\n"
-#   puts "Favorite Players:"
-#   @new_customer.players.each {|player|puts player.name}
-#   puts "\n"
-#   puts "Favorite Sports:"
-#   arr = @new_customer.sports.map {|sport| sport.sport}.uniq
-#   arr.each {|el| puts el }
-#
-# end
-
-  ##asdf
-=======
 def delete_account
   puts "Are you sure you want to delete your account? (y/n)"
   response = gets.chomp
@@ -187,7 +167,6 @@ def delete_account
     delete_acount
   end
 end
->>>>>>> dc595802ab36fca2ac08c460906ba24898f70bfe
 
 
   def change_sport_player
