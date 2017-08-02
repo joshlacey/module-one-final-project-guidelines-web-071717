@@ -1,5 +1,6 @@
 require 'faker'
 
+
 class Cli
   attr_accessor :new_customer
 
@@ -13,7 +14,6 @@ class Cli
 
   def login_or_create_account
       puts "Hi welcome to Nike! Have you used our service before? Please type 'yes' or 'no'"
-      # binding.pry
       response = gets.chomp.downcase
       if response == "yes"
         puts "Please type in your username"
@@ -21,7 +21,7 @@ class Cli
         checking_customer = Customer.find_by(name: username)
               if checking_customer
                 @new_customer = checking_customer
-                #move on to next method
+                return "returning_customer"
               else
                 puts "User does not exist. Try again? 'y' 'n'"
                 response = gets.chomp.downcase
@@ -48,6 +48,7 @@ class Cli
         create_username
       else
         @new_customer = Customer.create(name: username)
+        return "new_customer"
       end
     end
 
@@ -140,11 +141,20 @@ end
 #test#
 
 
+  def run
+    if self.login_or_create_account == "new_customer"
 
+      self.get_sport
 
+      self.fav_player
 
+      self.get_pricerange
 
-
+      self.here_suggestions
+    else
+      self.here_suggestions
+    end
+  end
 
 
 
