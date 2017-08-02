@@ -26,6 +26,19 @@ end
 
   end
 
+  def account_overview
+    puts "username:#{self.name}"
+    puts "\n"
+    puts "Favorite Players:"
+    self.players.each {|player|puts player.name}
+    puts "\n"
+    puts "Favorite Sports:"
+    self.sports.each {|sport|puts sport.sport}
+    puts "\n"
+    puts "Suggested Styles:"
+    puts self.cart.sample(7)
+  end
+
 end
 
 # Style.where("(price <= ? AND price >= ?) OR player_id = ?", bob.highest_price, bob.lowest_price).

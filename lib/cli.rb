@@ -109,8 +109,6 @@ end #what sports are you interested in?
   def get_pricerange
     puts "What is the most you are willing to spend?"
     @new_customer.highest_price = gets.chomp
-    puts "What is the least amount you are willing to spend?"
-    @new_customer.lowest_price = gets.chomp
     @new_customer.save
   end
 
@@ -119,26 +117,98 @@ end #what sports are you interested in?
     if @new_customer.cart == []
       puts "Sorry there are no suggestions based on your criteria."
     else
-      puts @new_customer.cart
+      puts @new_customer.cart.sample(7)
     end
-    loop do
-    puts "Do you want to look at shoes from another player? 'yes' or 'no'"
+  end
+
+  def what_next
+    puts "What would you like to do now?"
+    puts "1 - Account overview."
+    puts "2 - Change sports or players"
+    puts "3 - Delete your account"
+    puts "4 - exit"
     response = gets.chomp
-    if response == "yes"
-      fav_player
-    elsif response == "no"
-      puts "Thanks for visiting us at Nike.com"
-      break
+    case response
+    when "1"
+      puts "\n"
+      puts @new_customer.account_overview
+      puts "\n"
+      what_next
+    when "2"
+      puts "\n"
+      change_sport_player
+      puts "\n"
+      what_next
+    when "3"
+      puts "\n"
+      puts delete_account
+      puts "\n"
+    when "4"
+      puts "\n"
+      puts "Goodbye"
+      return nil
     else
-      puts "Invalid response"
+      puts "Invalid Input"
+      what_next
+    end
+  end
+
+def delete_account
+  puts "Are you sure you want to delete your account? (y/n)"
+  response = gets.chomp
+  if response.downcase == "y"
+    @new_customer.delete
+    puts "Account Deleted :'( "
+    return nil
+  elsif response.downcase == "n"
+    what_next
+  else
+    puts "invalid input"
+    delete_acount
   end
 end
-end
-
-  ##asdf
 
 
-#test#
+  def change_sport_player
+    puts "1 - Change Player ?"
+    puts "2 - Change Sport ?"
+    puts "3 - Return to main menu"
+    response = gets.chomp
+    case response
+    when "1"
+      puts @new_customer.players.map{|player| player.name}
+      puts "Please type the name of the player you would like to remove from your list"
+      player = gets.chomp
+      found_player = Player.find_by(name: player)
+      if found_player && @new_customer.players.include?(found_player)
+        @new_customer.player_associations.destroy(PlayerAssociation.find_by(customer_id: @new_customer.id, player_id: found_player.id))
+        puts "#{found_player.name} was deleted"
+        puts @new_customer.player_associations
+        change_sport_player
+      else
+        puts "Invalid input."
+        change_sport_player
+      end
+    when "2"
+      puts @new_customer.sports.map{|sport| sport.sport}
+      puts "Please type the name of the sport you would like to remove from your list"
+      sport = gets.chomp
+      found_sport = Sport.find_by(sport: sport)
+      if found_sport && @new_customer.sports.include?(found_sport)
+        SportAssociation.find_by(customer_id: @new_customer.id, sport_id: found_sport.id).delete
+        puts "#{found_sport.sport} was deleted"
+        change_sport_player
+      else
+        puts "Invalid input."
+        change_sport_player
+      end
+    when "3"
+      what_next
+    else
+      puts "Invalid input."
+      change_sport_player
+    end
+  end
 
 
   def run
@@ -151,11 +221,14 @@ end
       self.get_pricerange
 
       self.here_suggestions
+
+      self.what_next
+
     else
-      self.here_suggestions
+
+      self.what_next
+
     end
   end
-
-
 
 end
