@@ -75,7 +75,8 @@ class Cli
 end #what sports are you interested in?
 
   def fav_player #if sport matches player sport_id display players
-    puts "Who's you favorite player?" #We have some shoes by some basketball players
+    puts "Here are a list of athletes for the sport(s) you've chosen."
+    @new_customer.sports.each {|sports| puts sportss.sport} #We have some shoes by some basketball players
     #lists players numbered based on the sports that they choose. asks user to type number corresponding to the player
     #saves player_id to user's favorite players. Customer has many players
      player = gets.chomp
@@ -106,6 +107,16 @@ end #what sports are you interested in?
       puts a
     end
   end
+
+
+#test#
+
+
+
+
+
+
+
 
 
 
