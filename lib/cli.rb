@@ -1,3 +1,5 @@
+require 'faker'
+
 class Cli
   attr_accessor :new_customer
 
@@ -11,6 +13,7 @@ class Cli
 
   def login_or_create_account
       puts "Hi welcome to Nike! Have you used our service before? Please type 'yes' or 'no'"
+      binding.pry
       response = gets.chomp.downcase
       if response == "yes"
         puts "Please type in your username"
@@ -98,13 +101,10 @@ end #what sports are you interested in?
 
   def here_suggestions
     puts "Here are some suggestions!"
-  a =  Style.all.select do |shoe|
-     ((@new_customer.lowest_price <= shoe.price && shoe.price <= @new_customer.highest_price) && (shoe.sport_id == @new_customer.sport_id)) || shoe.player_id == @new_customer.player_id
-   end.map{|shoe| shoe.url }
-    if a == []
+    if @new_customer.cart == []
       puts "Sorry there are no suggestions based on your criteria."
     else
-      puts a
+      puts @new_customer.cart
     end
   end
 
