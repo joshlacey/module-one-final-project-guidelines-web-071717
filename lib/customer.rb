@@ -26,7 +26,20 @@ end
 
   end
 
+
+def account_overview
+
+  puts "username:#{self.name}"
+  puts "\n"
+  puts "Favorite Players:"
+  self.players.each {|player|puts player.name}
+  puts "\n"
+  puts "Favorite Sports:"
+  arr = self.sports.map {|sport| sport.sport}.uniq
+  arr.each {|el| puts el }
+
 end
 
 # Style.where("(price <= ? AND price >= ?) OR player_id = ?", bob.highest_price, bob.lowest_price).
 # count
+end

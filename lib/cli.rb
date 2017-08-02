@@ -119,7 +119,7 @@ end #what sports are you interested in?
     if @new_customer.cart == []
       puts "Sorry there are no suggestions based on your criteria."
     else
-      puts @new_customer.cart
+      puts @new_customer.cart.sample(5)
     end
     loop do
     puts "Do you want to look at shoes from another player? 'yes' or 'no'"
@@ -134,6 +134,19 @@ end #what sports are you interested in?
   end
 end
 end
+
+# def account_overview
+#
+#   puts "username:#{@new_customer.name}"
+#   puts "\n"
+#   puts "Favorite Players:"
+#   @new_customer.players.each {|player|puts player.name}
+#   puts "\n"
+#   puts "Favorite Sports:"
+#   arr = @new_customer.sports.map {|sport| sport.sport}.uniq
+#   arr.each {|el| puts el }
+#
+# end
 
   ##asdf
 
