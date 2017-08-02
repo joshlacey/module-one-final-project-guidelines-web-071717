@@ -1,5 +1,6 @@
 require_relative "../config/environment"
 require 'open-uri'
+require 'faker'
 
 tennis_shoes = "https://store.nike.com/us/en_us/pw/mens-tennis-shoes/7puZoi3Zpd7"
 
@@ -22,3 +23,28 @@ load_db_with_html(url: chris_paul_basketball_player, sport: "basketball", player
 load_db_with_html(url: ronaldo_soccer_player, sport: "soccer", player: "cristiano ronaldo")
 load_db_with_html(url: neymar_soccer_player, sport: "soccer", player: "neymar")
 load_db_with_html(url: tennis_shoes, sport: "tennis")
+
+def create_customers
+  30.times do
+
+    username = Faker::Name.unique.name.delete(" ").downcase
+
+    max_price = rand(100..Style.maximum(:price)+75)
+    min_price = rand(40..100)
+
+    customer = Customer.create(name: username, lowest_price: min_price, highest_price: max_price)
+
+    player_nums = Player.pluck(:id).sample(rand(1..4)).uniq.to_a
+    player_nums.each do |num|
+      PlayerAssociation.create(customer_id: customer.id, player_id: num)
+    end
+
+    sport_nums = Sport.pluck(:id).sample(rand(1..3)).uniq.to_a
+    sport_nums.each do |num|
+      SportAssociation.create(customer_id: customer.id, sport_id: num)
+    end
+
+  end
+end
+
+create_customers

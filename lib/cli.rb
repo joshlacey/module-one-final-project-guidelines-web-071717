@@ -1,3 +1,5 @@
+require 'faker'
+
 class Cli
   attr_accessor :new_customer
 
@@ -11,6 +13,7 @@ class Cli
 
   def login_or_create_account
       puts "Hi welcome to Nike! Have you used our service before? Please type 'yes' or 'no'"
+      binding.pry
       response = gets.chomp.downcase
       if response == "yes"
         puts "Please type in your username"
