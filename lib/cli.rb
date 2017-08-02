@@ -68,12 +68,13 @@ class Cli
      else
       found_sport =  Sport.find_by(sport: sport)
       if found_sport
-        SportAssociation.create(customer_id:@new_customer.id, sport_id: found_sport.id)
+        SportAssociation.find_or_create_by(customer_id:@new_customer.id, sport_id: found_sport.id)
         get_sport
       else
         puts "Please pick a sport from the list"
         get_sport
       end
+      # binding.pry
     end
 
     # @new_customer.sport_id = Sport.find_by(sport: sport).id

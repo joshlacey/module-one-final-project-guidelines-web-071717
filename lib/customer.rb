@@ -15,7 +15,7 @@ class Customer < ActiveRecord::Base
   end
 
 def self.max_budget
-  puts Customer.average(:highest_price).to_s
+  puts "$#{Customer.average(:highest_price).to_i.round(2)}"
 end
 
 
