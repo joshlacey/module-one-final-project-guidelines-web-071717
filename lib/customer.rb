@@ -21,7 +21,7 @@ end
 
   def cart
     Style.all.select do |shoe|
-       ( (self.lowest_price <= shoe.price && shoe.price <= self.highest_price) && (self.sports.include?(shoe.sport)) ) || self.players.map{|player| player.id}.include?(shoe.player_id)
+       ( (shoe.price <= self.highest_price) && (self.sports.include?(shoe.sport)) ) || self.players.map{|player| player.id}.include?(shoe.player_id)
      end.map{|shoe| shoe.url }
 
   end

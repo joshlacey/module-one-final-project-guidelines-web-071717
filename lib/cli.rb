@@ -91,7 +91,7 @@ end #what sports are you interested in?
     input = gets.chomp.downcase
     found_player = Player.find_by(name: input)
     if found_player
-      PlayerAssociation.create(customer_id:@new_customer.id, player_id: found_player.id)
+      PlayerAssociation.find_or_create_by(customer_id:@new_customer.id, player_id: found_player.id)
     else
       puts "Please pick a player from the list by typing in the name"
       fav_player
@@ -182,10 +182,7 @@ end
       player = gets.chomp
       found_player = Player.find_by(name: player)
       if found_player && @new_customer.players.include?(found_player)
-        @new_customer.player_associations.destroy(PlayerAssociation.find_by(customer_id: @new_customer.id, player_id: found_player.id))
-        puts "#{found_player.name} was deleted"
-        puts @new_customer.player_associations
-        change_sport_player
+        delete_player(found_player)
       else
         puts "Invalid input."
         change_sport_player
@@ -205,12 +202,24 @@ end
       end
     when "3"
       what_next
+      return "returning_customer"
     else
       puts "Invalid input."
       change_sport_player
     end
   end
 
+def delete_player(found_player)
+  association = PlayerAssociation.find_by(customer_id: @new_customer.id, player_id: found_player.id)
+  if association
+    association.destroy
+  puts "#{found_player.name} was deleted"
+    change_sport_player
+  else
+    puts "Looks like that player was already deleted"
+    change_sport_player
+  end
+end
 
   def run
     if self.login_or_create_account == "new_customer"
