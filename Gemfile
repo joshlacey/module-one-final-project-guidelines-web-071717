@@ -8,3 +8,4 @@ gem "require_all"
 gem 'nokogiri'
 gem "byebug"
 gem "faker"
+gem 'colorize', '~> 0.8.1'

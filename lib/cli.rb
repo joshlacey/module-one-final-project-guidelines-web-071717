@@ -1,3 +1,4 @@
+
 class Cli
   attr_accessor :new_customer
 
@@ -7,13 +8,13 @@ class Cli
 
   def login_or_create_account
       puts "\n"
-      puts "Hi welcome to Nike! Have you used our service before? Please type 'yes' or 'no'"
+      puts "Hi welcome to Nike! Have you used our service before? Please type ".colorize(:blue) + "yes".bold.blue + " or ".colorize(:blue) + "no".bold.blue
       response = gets.chomp.downcase
       if response == "yes"
         puts "\n"
-        puts "Please type in your username"
+        puts "Please type in your " + "username".bold.blue
         username = gets.chomp
-        puts "Please type in your password"
+        puts "Please type in your" + "password".bold.blue
         the_password = gets.chomp
         checking_customer = Customer.find_by(name: username)
         # binding.pry
@@ -34,23 +35,23 @@ class Cli
         create_username
       else
         puts "\n"
-        puts "Invalid input, please try again."
+        puts "Invalid input, please try again.".colorize(:red)
         login_or_create_account
       end
     end
 
     def create_username #was git name
       puts "\n"
-      puts "Please create your username"
+      puts "Please create your" + " username".bold.blue
       username = gets.chomp.downcase
       tester = Customer.find_by(name: username)
       if tester
         puts "\n"
-        puts "Sorry that username is taken"
+        puts "Sorry that username is taken".colorize(:red)
         create_username
       else
         @new_customer = Customer.create(name: username, highest_price: 50)
-        puts "Please create a password"
+        puts "Please create a " + "password".bold.blue
         @new_customer.password = gets.chomp
         return "new_customer"
       end
@@ -60,10 +61,11 @@ class Cli
 
   def get_sport
     puts "\n"
-    puts  "Here is a list of sports we cater to. Choose what sports interest you or type 'quit' to exit."
-    Sport.all.each {|sports| puts sports.sport}
+    puts  "Here is a list of sports we cater to. Choose what sports interest you or type " + "next".bold.green
+    puts "\n"
+    Sport.all.each {|sports| puts sports.sport.bold.blue}
     sport = gets.chomp.downcase
-    if sport == "quit"
+    if sport == "next"
       puts "Great"
      else
       found_sport =  Sport.find_by(sport: sport)
@@ -72,31 +74,37 @@ class Cli
           get_sport
         else
           puts "\n"
-          puts "Please pick a sport from the list"
+          puts "Please pick a sport from the list".colorize(:red)
           get_sport
         end
       end
-      # binding.pry
     end
 
   def fav_player
     puts "\n"
-    puts "Here are a list of athletes for the sport(s) you've chosen."
+    puts "Here are a list of athletes for the sport(s) you've chosen.".colorize.(:blue)
     puts "\n"
     arr = @new_customer.sports.map {|sportt| sportt.id}
     arr.each do |id|
-      Player.where("sport_id = #{id}").each_with_index {|player,idx| puts "#{player.sport.sport}: #{idx+1}.#{player.name}"}
+      Player.where("sport_id = #{id}").each_with_index {|player,idx| puts "#{player.sport.sport}".bold.blue + " : " + "#{idx+1}".bold.black + "." + "#{player.name}".bold.green}
     end
-    puts "Please pick a player from the list by typing in the name."
+    puts "\n"
+    puts "Please pick a player from the list by typing in the name or type next to continue"
     input = gets.chomp.downcase
+    if input == "next"
+      puts "\n"
+      puts "Ok"
+    else
     found_player = Player.find_by(name: input)
     if found_player
       PlayerAssociation.find_or_create_by(customer_id:@new_customer.id, player_id: found_player.id)
+      fav_player
     else
       puts "\n"
-      puts "Please pick a player from the list by typing in the name"
+      puts "Sorry invalid input. Please pick a player from the list by typing in the name".colorize(:red)
       fav_player
     end
+  end
   end
 
   def get_pricerange
