@@ -30,9 +30,8 @@ def create_customers
     username = Faker::Name.unique.name.delete(" ").downcase
 
     max_price = rand(100..Style.maximum(:price)+75)
-    min_price = rand(40..100)
 
-    customer = Customer.create(name: username, lowest_price: min_price, highest_price: max_price)
+    customer = Customer.create(name: username,  highest_price: max_price)
 
     player_nums = Player.pluck(:id).sample(rand(1..4)).uniq.to_a
     player_nums.each do |num|
