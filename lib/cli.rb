@@ -119,28 +119,33 @@ class Cli
   def what_next
     puts "\n"
     puts "What would you like to do now?"
-    puts "1 - Account overview."
+    puts "1 - View some suggestions"
     puts "2 - Change sports or players"
-    puts "3 - Delete your account"
-    puts "4 - exit"
+    puts "3 - Account overview"
+    puts "4 - Delete your account"
+    puts "5 - Exit"
     puts "\n"
     response = gets.chomp
     case response
     when "1"
       puts "\n"
-      puts @new_customer.account_overview
+      puts "Here are some suggestions!"
+      puts @new_customer.cart.sample(7)
       puts "\n"
       what_next
     when "2"
       puts "\n"
       change_sport_player
       puts "\n"
-      what_next
     when "3"
+      puts "\n"
+      puts @new_customer.account_overview
+      puts "\n"
+    when "4"
       puts "\n"
       puts delete_account
       puts "\n"
-    when "4"
+    when "5"
       puts "\n"
       puts "Goodbye"
       return nil
@@ -200,7 +205,6 @@ end
       end
     when "3"
       what_next
-      return "returning_customer"
     else
       puts "\n"
       puts "Invalid input."
@@ -240,22 +244,23 @@ end
 
   def run
     if self.login_or_create_account == "new_customer"
-
-      self.get_sport
-
-      self.fav_player
-
-      self.get_pricerange
-
-      self.here_suggestions
-
-      self.what_next
-
+      run_new_customer
     else
-
-      self.what_next
-
+      run_returning_customer
     end
   end
+
+def run_new_customer
+  self.get_sport
+  self.fav_player
+  self.get_pricerange
+  self.here_suggestions
+  self.what_next
+end
+
+def run_returning_customer
+  self.what_next
+end
+
 
 end
