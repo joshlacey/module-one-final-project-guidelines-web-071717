@@ -181,7 +181,7 @@ end
     when "1"
       puts "\n"
       puts "Please type the name of the player you would like to remove from your list"
-      puts @new_customer.players.reload.map{|player| "  - #{player.name}"}
+      puts @new_customer.players.reload.map{|player| "  - #{player.name}"} #reload method changes reloads from the database instead of using the cache
       player = gets.chomp
       found_player = Player.find_by(name: player)
       if found_player && @new_customer.players.include?(found_player)
