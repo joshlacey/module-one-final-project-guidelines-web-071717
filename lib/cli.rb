@@ -14,7 +14,7 @@ class Cli
         puts "\n"
         puts "Please type in your " + "username".bold.blue
         username = gets.chomp
-        puts "Please type in your" + "password".bold.blue
+        puts "Please type in your " + "password".bold.blue
         the_password = gets.chomp
         checking_customer = Customer.find_by(name: username)
         # binding.pry
@@ -82,14 +82,14 @@ class Cli
 
   def fav_player
     puts "\n"
-    puts "Here are a list of athletes for the sport(s) you've chosen.".colorize.(:blue)
+    puts "Here are a list of athletes for the sport(s) you've chosen.".colorize(:blue)
     puts "\n"
     arr = @new_customer.sports.map {|sportt| sportt.id}
     arr.each do |id|
       Player.where("sport_id = #{id}").each_with_index {|player,idx| puts "#{player.sport.sport}".bold.blue + " : " + "#{idx+1}".bold.black + "." + "#{player.name}".bold.green}
     end
     puts "\n"
-    puts "Please pick a player from the list by typing in the name or type next to continue"
+    puts "Please pick a player from the list by typing in the name or type " + "next ".bold.green + "to continue"
     input = gets.chomp.downcase
     if input == "next"
       puts "\n"
@@ -109,7 +109,7 @@ class Cli
 
   def get_pricerange
     puts "\n"
-    puts "What is the most you are willing to spend?"
+    puts "What is the most you are willing to spend?".colorize(:blue)
     @new_customer.highest_price = gets.chomp
     @new_customer.save
   end
@@ -117,27 +117,27 @@ class Cli
   def here_suggestions
     puts "\n"
     if @new_customer.cart == []
-      puts "Sorry there are no suggestions based on your criteria."
+      puts "Sorry there are no suggestions based on your criteria.".colorize(:red)
     else
-      puts "Here are some suggestions!"
+      puts "Here are some suggestions!".colorize(:blue)
       puts @new_customer.cart.sample(7)
     end
   end
 
   def what_next
     puts "\n"
-    puts "What would you like to do now?"
-    puts "1 - View some suggestions"
-    puts "2 - Change sports or players"
-    puts "3 - Account overview"
-    puts "4 - Delete your account"
-    puts "5 - Exit"
+    puts "What would you like to do now?".bold.blue
+    puts "1 - View some suggestions".colorize(:green)
+    puts "2 - Change sports or players".colorize(:green)
+    puts "3 - Account overview".colorize(:green)
+    puts "4 - Delete your account".colorize(:red)
+    puts "5 - Exit".colorize(:red)
     puts "\n"
     response = gets.chomp
     case response
     when "1"
       puts "\n"
-      puts "Here are some suggestions!"
+      puts "Here are some suggestions!".colorize(:blue)
       puts @new_customer.cart.sample(7)
       puts "\n"
       what_next
@@ -149,6 +149,7 @@ class Cli
       puts "\n"
       puts @new_customer.account_overview
       puts "\n"
+      what_next
     when "4"
       puts "\n"
       puts delete_account
@@ -181,42 +182,42 @@ end
 
 
   def change_sport_player
-    puts "1 - Change Player ?"
-    puts "2 - Change Sport ?"
-    puts "3 - Return to main menu"
+    puts "1 - Change Player ?".colorize(:green)
+    puts "2 - Change Sport ?".colorize(:green)
+    puts "3 - Return to main menu".colorize(:green)
     response = gets.chomp
     case response
     when "1"
       puts "\n"
-      puts "Please type the name of the player you would like to remove from your list"
-      puts @new_customer.players.reload.map{|player| "  - #{player.name}"}
+      puts "Please type the name of the player you would like to remove from your list".bold.blue
+      puts @new_customer.players.reload.map{|player| "  - #{player.name}".colorize(:blue)}
       player = gets.chomp
       found_player = Player.find_by(name: player)
       if found_player && @new_customer.players.include?(found_player)
         delete_player(found_player)
       else
         puts "\n"
-        puts "Invalid input."
+        puts "Invalid input".colorize(:red)
         change_sport_player
       end
     when "2"
       puts "\n"
-      puts "Please type the name of the sport you would like to remove from your list"
-      puts @new_customer.sports.reload.map{|sport| "  - #{sport.sport}"}
+      puts "Please type the name of the sport you would like to remove from your list".bold.blue
+      puts @new_customer.sports.reload.map{|sport| "  - #{sport.sport}".colorize(:blue)}
       sport = gets.chomp
       found_sport = Sport.find_by(sport: sport)
       if found_sport && @new_customer.sports.include?(found_sport)
         delete_sport(found_sport)
       else
         puts "\n"
-        puts "Invalid input."
+        puts "Invalid input".colorize(:red)
         change_sport_player
       end
     when "3"
       what_next
     else
       puts "\n"
-      puts "Invalid input."
+      puts "Invalid input".colorize(:red)
       change_sport_player
     end
   end
@@ -226,11 +227,11 @@ def delete_player(found_player)
   if association
     association.destroy
     puts "\n"
-    puts "#{found_player.name} was deleted"
+    puts "#{found_player.name} was deleted".colorize(:red)
     change_sport_player
   else
     puts "\n"
-    puts "Looks like that player was already deleted"
+    puts "Looks like that player was already deleted".colorize(:red)
     change_sport_player
   end
 end
@@ -241,11 +242,11 @@ def delete_sport(found_sport)
   if association
     association.destroy
     puts "\n"
-    puts "#{found_sport.sport} was deleted"
+    puts "#{found_sport.sport} was deleted".colorize(:red)
     change_sport_player
   else
     puts "\n"
-    puts "Looks like that sport was already deleted"
+    puts "Looks like that sport was already deleted".colorize(:red)
     change_sport_player
   end
 end
@@ -297,7 +298,7 @@ def swoosh
                            .@@@@@@@;
 
 
-"
+".colorize(:red)
 end
 
 
