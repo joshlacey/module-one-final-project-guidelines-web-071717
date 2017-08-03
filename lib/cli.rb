@@ -147,7 +147,8 @@ class Cli
       puts "\n"
     when "5"
       puts "\n"
-      puts "Goodbye"
+      puts "                                                Goodbye"
+      swoosh
       return nil
     else
       puts "Invalid Input"
@@ -243,6 +244,7 @@ end
 
 
   def run
+    self.swoosh
     if self.login_or_create_account == "new_customer"
       run_new_customer
     else
@@ -260,6 +262,34 @@ end
 
 def run_returning_customer
   self.what_next
+end
+
+def swoosh
+  puts "
+
+
+                                                                            `+
+                             @                                          `+@;
+                            @                                        :@@@.
+                           @@                                    :#@@@#
+                          '@@                                .#@@@@@;
+                         `@@+                            `#@@@@@@@
+                         @@@+                        `'@@@@@@@@+
+                        '@@@@                     '@@@@@@@@@@,
+                        @@@@@                 :@@@@@@@@@@@@`
+                       ;@@@@@@            ,@@@@@@@@@@@@@'
+                       @@@@@@@@.      .#@@@@@@@@@@@@@@,
+                       @@@@@@@@@@@@@@@@@@@@@@@@@@@#
+                       `@@@@@@@@@@@@@@@@@@@@@@@@@'
+                       `@@@@@@@@@@@@@@@@@@@@@@@`
+                        @@@@@@@@@@@@@@@@@@@@#
+                        @@@@@@@@@@@@@@@@@@:
+                         .@@@@@@@@@@@@@@@`
+                          #@@@@@@@@@@@'
+                           .@@@@@@@;
+
+
+"
 end
 
 
