@@ -13,8 +13,11 @@ class Cli
         puts "\n"
         puts "Please type in your username"
         username = gets.chomp
+        puts "Please type in your password"
+        the_password = gets.chomp
         checking_customer = Customer.find_by(name: username)
-              if checking_customer
+        # binding.pry
+              if checking_customer && checking_customer.password == the_password
                 @new_customer = checking_customer
                 return "returning_customer"
               else
@@ -47,8 +50,11 @@ class Cli
         create_username
       else
         @new_customer = Customer.create(name: username, highest_price: 50)
+        puts "Please create a password"
+        @new_customer.password = gets.chomp
         return "new_customer"
       end
+
     end
 
 
@@ -70,6 +76,7 @@ class Cli
           get_sport
         end
       end
+      # binding.pry
     end
 
   def fav_player
